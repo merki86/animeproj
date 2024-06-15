@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"serwennn/studyproject/domain"
+	domain "serwennn/studyproject/domain/index"
 	"strconv"
 )
 
@@ -26,11 +26,7 @@ func main() {
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
-	animesMap := make(map[string][]domain.Anime)
-
-	animesMap["Animes"] = domain.Animes
-
-	tpl.ExecuteTemplate(w, "index.gohtml", animesMap)
+	tpl.ExecuteTemplate(w, "index.gohtml", domain.GetAnimeList())
 }
 
 func addAnime(w http.ResponseWriter, req *http.Request) {
