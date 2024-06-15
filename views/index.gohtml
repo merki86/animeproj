@@ -13,15 +13,18 @@
     }
 </style>
 
+<h1>Anime List</h1>
+
 {{ range .Animes }}
 
-    <div>
-        <h2>{{ .Title }}</h2>
-        <p>ID: {{ .ID }} Eng name: {{ .TranslatedTitle }}</p>
-    </div>
+<div>
+    <h3>{{ .Title }}</h3>
+    <p>ID: {{ .ID }} Eng name: {{ .TranslatedTitle }}</p>
+</div>
 
 {{ end }}
 
+<h2>Add anime form</h2>
 <form action="/add-anime" method="POST">
     <label for="title">Title</label>
     <input type="text" name="title" id="title">
@@ -31,6 +34,15 @@
     <input type="text" name="translatedTitle" id="translatedTitle">
     <br>
 
+    <label for="id">ID</label>
+    <input type="text" name="id" id="id">
+    <br>
+
+    <input type="submit">
+</form>
+
+<h2>Delete anime form</h2>
+<form action="/delete-anime" method="POST">
     <label for="id">ID</label>
     <input type="text" name="id" id="id">
     <br>

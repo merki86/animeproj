@@ -18,18 +18,19 @@ func init() {
 func main() {
 	fmt.Println("Starting")
 
-	http.HandleFunc("/", index)
-	http.HandleFunc("/add-anime", addAnime)
+	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/add-anime", addAnimeHandler)
+	http.HandleFunc("/delete-anime", deleteAnimeHandler)
 	// http.HandleFunc("/anime/{id}", anime)
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func index(w http.ResponseWriter, req *http.Request) {
-	tpl.ExecuteTemplate(w, "index.gohtml", domain.GetAnimeList())
+func indexHandler(w http.ResponseWriter, req *http.Request) {
+	tpl.ExecuteTemplate(w, "index.gohtml", domain.GetAnimes())
 }
 
-func addAnime(w http.ResponseWriter, req *http.Request) {
+func addAnimeHandler(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "POST" {
 		http.Redirect(w, req, "/", http.StatusSeeOther)
 		return
@@ -43,13 +44,31 @@ func addAnime(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	anime := domain.Anime{
-		Title:           title,
-		TranslatedTitle: translatedTitle,
-		ID:              id,
+	// Maybe it's better to initialize Anime struct here, but idk
+	// anime := domain.Anime{
+	// 	Title:           title,
+	// 	TranslatedTitle: translatedTitle,
+	// 	ID:              id,
+	// }
+
+	domain.AddAnime(title, translatedTitle, id)
+
+	http.Redirect(w, req, "/", http.StatusSeeOther)
+}
+
+func deleteAnimeHandler(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		http.Redirect(w, req, "/", http.StatusSeeOther)
+		return
 	}
 
-	domain.Animes = append(domain.Animes, anime)
+	id, err := strconv.Atoi(req.FormValue("id"))
+	if err != nil {
+		tpl.ExecuteTemplate(w, "error.gohtml", struct{ Error error }{Error: err})
+		return
+	}
+
+	domain.DeleteAnimeById(id)
 
 	http.Redirect(w, req, "/", http.StatusSeeOther)
 }
