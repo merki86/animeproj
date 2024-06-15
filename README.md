@@ -1,2 +1,2 @@
 # animeproj
-on go
+on golang
