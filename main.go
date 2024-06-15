@@ -5,21 +5,14 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"serwennn/studyproject/domain"
 	"strconv"
 )
-
-type Anime struct {
-	Title           string
-	TranslatedTitle string
-	ID              int
-}
-
-var animes []Anime
 
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseGlob("templates/*.gohtml"))
+	tpl = template.Must(template.ParseGlob("views/*.gohtml"))
 }
 
 func main() {
@@ -33,9 +26,9 @@ func main() {
 }
 
 func index(w http.ResponseWriter, req *http.Request) {
-	animesMap := make(map[string][]Anime)
+	animesMap := make(map[string][]domain.Anime)
 
-	animesMap["Animes"] = animes
+	animesMap["Animes"] = domain.Animes
 
 	tpl.ExecuteTemplate(w, "index.gohtml", animesMap)
 }
@@ -54,13 +47,13 @@ func addAnime(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	anime := Anime{
+	anime := domain.Anime{
 		Title:           title,
 		TranslatedTitle: translatedTitle,
 		ID:              id,
 	}
 
-	animes = append(animes, anime)
+	domain.Animes = append(domain.Animes, anime)
 
 	http.Redirect(w, req, "/", http.StatusSeeOther)
 }

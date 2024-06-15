@@ -1,4 +1,4 @@
-package models
+package domain
 
 type Anime struct {
 	Title           string
@@ -6,4 +6,4 @@ type Anime struct {
 	ID              int
 }
 
-var animes []Anime
+var Animes []Anime
