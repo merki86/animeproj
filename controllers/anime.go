@@ -25,7 +25,7 @@ func AddAnime(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	domain.AddAnime(title, translatedTitle, id)
+	domain.AddAnime(id, title, translatedTitle, "https://")
 
 	http.Redirect(w, req, "/", http.StatusSeeOther)
 }

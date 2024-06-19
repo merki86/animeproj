@@ -1,9 +1,10 @@
 package domain
 
 type Anime struct {
+	ID              int
 	Title           string
 	TranslatedTitle string
-	ID              int
+	Image           string
 }
 
 var Animes []Anime
@@ -15,11 +16,12 @@ func GetAnimes() map[string][]Anime {
 	return animesMap
 }
 
-func AddAnime(title string, translatedTitle string, id int) {
+func AddAnime(id int, title string, translatedTitle string, image string) {
 	anime := Anime{
+		ID:              id,
 		Title:           title,
 		TranslatedTitle: translatedTitle,
-		ID:              id,
+		Image:           image,
 	}
 
 	Animes = append(Animes, anime)
