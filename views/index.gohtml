@@ -19,22 +19,27 @@
 
 <div>
     <h3>{{ .Title }}</h3>
+    <image src="{{ .Image }}" width="150px">
     <p>ID: {{ .ID }} Eng name: {{ .TranslatedTitle }}</p>
 </div>
 
 {{ end }}
 
 <h2>Add anime form</h2>
-<form action="/add-anime" method="POST">
-    <label for="title">Title</label>
+<form action="/add-anime" enctype="multipart/form-data" method="POST">
+    <label for="title">Title:</label>
     <input type="text" name="title" id="title">
     <br>
     
-    <label for="translatedTitle">Translated Title</label>
+    <label for="translatedTitle">Translated Title:</label>
     <input type="text" name="translatedTitle" id="translatedTitle">
     <br>
 
-    <label for="id">ID</label>
+    <label for="image">Choose image:</label>
+    <input type="file" name="image" id="image">
+    <br>
+
+    <label for="id">ID:</label>
     <input type="text" name="id" id="id">
     <br>
 
