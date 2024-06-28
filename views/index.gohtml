@@ -4,25 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
-<style>
-    input {
-        margin-top: 10px;
-    }
-</style>
-
 <h1>Anime List</h1>
 
-{{ range .Animes }}
-
-<div>
-    <h3>{{ .Title }}</h3>
-    <p>ID: {{ .ID }} Eng name: {{ .TranslatedTitle }}</p>
+<div class="anime-list">
+    {{ range .Animes }}
+    
+    <div class="anime-card">
+        <h3>{{ .Title }}</h3>
+        <p>ID: {{ .ID }} Eng name: {{ .TranslatedTitle }}</p>
+    </div>
+    
+    {{ end }}
 </div>
-
-{{ end }}
 
 <h2>Add anime form</h2>
 <form action="/add-anime" method="POST">
