@@ -1,7 +1,5 @@
 package domain
 
-import "fmt"
-
 type Anime struct {
 	ID              int
 	Title           string
@@ -25,8 +23,6 @@ func AddAnime(id int, title string, translatedTitle string, image string) {
 		TranslatedTitle: translatedTitle,
 		Image:           image,
 	}
-
-	fmt.Println(anime.Image)
 
 	Animes = append(Animes, anime)
 }
